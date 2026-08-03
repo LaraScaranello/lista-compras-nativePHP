@@ -11,6 +11,7 @@ new class extends Component {
     public string $nome = '';
     public string $cor = '';
     public string $icone = '';
+    public ?int $categoriaId = null;
 
     public bool $mostrarModal = false;
 
@@ -30,7 +31,7 @@ new class extends Component {
         return Categoria::query()->orderBy('nome')->get();
     }
 
-    public function adicionarCategoria(): void
+    public function salvarCategoria(): void
     {
         $this->validate([
             'nome' => 'required|string|max:255',
@@ -38,11 +39,20 @@ new class extends Component {
             'icone' => 'required|string|max:255'
         ]);
 
-        Categoria::create([
-            'nome' => $this->nome,
-            'cor' => $this->cor,
-            'icone' => $this->icone
-        ]);
+        if ($this->categoriaId) {
+            $categoria = Categoria::query()->findOrFail($this->categoriaId);
+            $categoria->update([
+                'nome' => $this->nome,
+                'cor' => $this->cor,
+                'icone' => $this->icone
+            ]);
+        } else {
+            Categoria::create([
+                'nome' => $this->nome,
+                'cor' => $this->cor,
+                'icone' => $this->icone
+            ]);
+        }
 
         $this->fecharModal();
     }
@@ -54,18 +64,26 @@ new class extends Component {
 
     public function abrirModal(): void
     {
+        $this->reset(['nome', 'cor', 'icone']);
+        $this->categoriaEditando = null;
         $this->mostrarModal = true;
     }
 
     public function fecharModal(): void
     {
         $this->mostrarModal = false;
+        $this->reset(['nome', 'icone', 'cor']);
+        $this->categoriaEditando = null;
+    }
 
-        $this->reset([
-            'nome',
-            'icone',
-            'cor'
-        ]);
+    public function editarCategoria(Categoria $categoria): void
+    {
+        $this->categoriaId = $categoria->id;
+        $this->nome = $categoria->nome;
+        $this->cor = $categoria->cor->value;
+        $this->icone = $categoria->icone->value;
+
+        $this->mostrarModal = true;
     }
 };
 ?>
@@ -89,7 +107,7 @@ new class extends Component {
 
     <div class="categorias-lista">
         @foreach($this->categorias as $categoria)
-            <button class="categoria">
+            <button class="categoria" wire:click="editarCategoria({{ $categoria->id }})">
                 <div class="categoria-icone"
                      style="background:{{ $categoria->cor->hex() }}20;color:{{ $categoria->cor->hex() }}">
 
@@ -124,8 +142,8 @@ new class extends Component {
             <div class="sheet" wire:click.stop>
                 <div class="sheet-header">
                     <div class="sheet-handle"></div>
-                    <h2>Nova categoria</h2>
-                    <p>Organize suas tarefas com cores e ícones.</p>
+                    <h2>{{ $categoriaId ? 'Editar categoria' : 'Nova categoria' }}</h2>
+                    <p>{{ $categoriaId ? 'Atualize as informações da categoria.' : 'Organize suas tarefas com cores e ícones.' }}</p>
                 </div>
                 <div class="form-group">
                     <label class="form-label">
@@ -171,8 +189,8 @@ new class extends Component {
 
                 <button
                     class="btn-primary"
-                    wire:click="adicionarCategoria">
-                    Adicionar Categoria
+                    wire:click="salvarCategoria">
+                    {{ $categoriaId ? 'Salvar alterações' : 'Adicionar categoria' }}
                 </button>
             </div>
         </div>
