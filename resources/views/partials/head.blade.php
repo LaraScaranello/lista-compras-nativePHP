@@ -9,6 +9,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link href="{{ asset('/assets/css/global.css') }}" rel="stylesheet">
+<link href="{{ asset('/assets/css/categoria/categoria.css') }}" rel="stylesheet">
 
 @fonts
 

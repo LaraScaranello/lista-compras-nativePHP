@@ -1,0 +1,239 @@
+/* ==========================================
+   PÁGINA
+========================================== */
+
+.categorias {
+    padding: 24px;
+}
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 42px;
+}
+
+.header-subtitle {
+    margin: 0 0 6px;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.title {
+    margin: 0;
+    font-size: 34px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.badge {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    font-weight: 600;
+}
+
+/* ==========================================
+   LISTA
+========================================== */
+
+.categorias-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* ==========================================
+   CARD
+========================================== */
+
+.categoria {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    min-height: 76px;
+    padding: 16px 18px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    box-shadow:
+        0 1px 2px rgba(0,0,0,.03),
+        0 6px 20px rgba(0,0,0,.05);
+    transition: var(--transition);
+    animation: fadeUp 0.35s ease;
+}
+
+.categoria:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(0,0,0,.08);
+}
+
+.categoria-icone {
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    flex-shrink: 0;
+}
+
+.categoria-content {
+    flex: 1;
+    text-align: left;
+}
+
+.categoria-nome {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.categoria-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    transition: var(--transition);
+}
+
+.categoria:hover .categoria-right {
+    transform: translateX(3px);
+}
+
+/* ==========================================
+   FAB
+========================================== */
+
+.fab {
+    position: fixed;
+    right: 28px;
+    bottom: 28px;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 22px;
+    background: linear-gradient(180deg, #ff78bf 0%, #ec4899 100%);
+    color: #fff;
+    box-shadow:
+        0 12px 30px rgba(236,72,153,.30),
+        inset 0 1px 1px rgba(255,255,255,.35);
+    transition: var(--transition);
+}
+
+.fab:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow:
+        0 18px 38px rgba(236,72,153,.40),
+        inset 0 1px 1px rgba(255,255,255,.40);
+}
+
+.fab:active {
+    transform: scale(.95);
+}
+
+/* ==========================================
+   BOTTOM SHEET
+========================================== */
+
+.sheet-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    display: flex;
+    align-items: flex-end;
+    background: var(--overlay);
+    backdrop-filter: blur(8px);
+}
+
+.sheet {
+    width: 100%;
+    max-width: 85vh;
+    overflow: auto;
+    background: var(--surface);
+    border-radius: 32px 32px 0 0;
+    padding: 20px 24px calc(24px + env(safe-area-inset-bottom));
+    display: grid;
+    gap: 20px;
+    box-shadow:var(--shadow-lg);
+    animation:sheetUp .35s cubic-bezier(.22,1,.36,1);
+}
+
+.sheet-header {
+    margin-bottom: 28px;
+}
+
+.sheet-handle {
+    width: 58px;
+    height: 5px;
+    margin: 0 auto 28px;
+    border-radius: 999px;
+    background: #d1d5db;
+}
+
+.sheet-header h2 {
+    margin: 0 0 6px;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.sheet-header p {
+    margin: 0;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+/* ==========================================
+   PICKERS
+========================================== */
+
+.icon-picker,
+.color-picker {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(48px, 1fr));
+    gap: 14px;
+}
+
+.icon-picker button {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--surface-light);
+    color: var(--text);
+    transition: var(--transition);
+}
+
+.icon-picker button.active {
+    background: var(--color-primary);
+    color: #fff;
+    border-color: var(--color-primary);
+    transform: scale(1.08);
+    box-shadow: 0 8px 18px rgba(236,72,153,.35);
+}
+
+.color-picker button {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    transition: var(--transition);
+}
+
+.color-picker button.active {
+    outline: 3px solid var(--color-primary);
+    transform: scale(1.12);
+}

@@ -71,34 +71,67 @@ new class extends Component {
 ?>
 
 <div class="categorias">
-    <h1 class="titulo">Categorias</h1>
+    <div class="header">
+        <div>
+            <p class="header-subtitle">
+                Organize suas tarefas
+            </p>
+
+            <h1 class="title">
+                Categorias
+            </h1>
+        </div>
+
+        <span class="badge">
+            {{ $this->categorias->count() }}
+        </span>
+    </div>
 
     <div class="categorias-lista">
         @foreach($this->categorias as $categoria)
             <button class="categoria">
-                <div
-                    class="categoria-cor"
-                    style="background-color: {{ $categoria->cor->hex() }}">
+                <div class="categoria-icone"
+                     style="background:{{ $categoria->cor->hex() }}20;color:{{ $categoria->cor->hex() }}">
+
+                    <x-dynamic-component :component="$categoria->icone->blade()" class="w-5 h-5"/>
                 </div>
-                <span>
-                    {{ $categoria->nome }}
-                </span>
+                <div class="categoria-content">
+                    <span class="categoria-nome">
+                        {{ $categoria->nome }}
+                    </span>
+                </div>
+
+                <div class="categoria-right">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 18l6-6-6-6"/>
+                    </svg>
+                </div>
             </button>
         @endforeach
     </div>
 
     <button class="fab" wire:click="abrirModal">
-        +
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 5v14"/>
+            <path d="M5 12h14"/>
+        </svg>
     </button>
 
     @if($mostrarModal)
         <div class="sheet-backdrop" wire:click="fecharModal">
             <div class="sheet" wire:click.stop>
+                <div class="sheet-header">
+                    <div class="sheet-handle"></div>
+                    <h2>Nova categoria</h2>
+                    <p>Organize suas tarefas com cores e ícones.</p>
+                </div>
                 <div class="form-group">
                     <label class="form-label">
                         Nome
                     </label>
-                    <input class="form-control" wire:model.live="nome">
+                    <input class="form-control" placeholder="Ex.: Trabalho" wire:model.live="nome">
                 </div>
 
                 <div class="form-group">
@@ -145,54 +178,3 @@ new class extends Component {
         </div>
     @endif
 </div>
-
-<style>
-    .categorias {
-        padding: 24px;
-    }
-
-    .titulo {
-        font-size: 34px;
-        margin-bottom: 28px;
-    }
-
-    .categorias-lista {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-    }
-
-    .categoria {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        padding: 18px;
-        border: none;
-        border-radius: var(--radius);
-        background: var(--surface);
-        color: var(--text);
-        cursor:pointer;
-    }
-
-    .categoria-cor {
-        width: 18px;
-        height: 18px;
-        border-radius: 50%;
-    }
-
-    .fab {
-        position: fixed;
-        right: 24px;
-        bottom: 24px;
-        width: 64px;
-        height: 64px;
-        border: none;
-        border-radius: 50%;
-        background: var(--color-primary);
-        color: white;
-        font-size: 32px;
-        cursor: pointer;
-        box-shadow: var(--shadow);
-    }
-</style>
