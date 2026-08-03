@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nome');
             $table->string('cor')->default('#3B82F6');
+            $table->string('icone');
             $table->timestamps();
         });
     }

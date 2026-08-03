@@ -7,6 +7,7 @@ Route::view('/', 'welcome')->name('home');
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
     Route::livewire('/itens', 'pages::itens')->name('itens');
+    Route::livewire('/categorias', 'pages::categorias')->name('categorias');
 });
 
 require __DIR__.'/settings.php';

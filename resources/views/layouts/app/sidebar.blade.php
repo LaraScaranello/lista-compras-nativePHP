@@ -16,6 +16,10 @@
                         {{ __('Dashboard') }}
                     </flux:sidebar.item>
 
+                    <flux:sidebar.item icon="folder" :href="route('categorias')" :current="request()->routeIs('categorias')" wire:navigate>
+                        {{ __('Categorias') }}
+                    </flux:sidebar.item>
+
                     <flux:sidebar.item icon="shopping-cart" :href="route('itens')" :current="request()->routeIs('itens')" wire:navigate>
                         {{ __('Lista de Compras') }}
                     </flux:sidebar.item>

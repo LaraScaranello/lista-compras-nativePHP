@@ -12,6 +12,7 @@ class Item extends Model
         'quantidade',
         'preco',
         'comprado',
+        'categoria_id',
     ];
 
     public function categoria(): BelongsTo
